@@ -1,0 +1,51 @@
+{
+  "expo": {
+    "name": "VeriMed",
+    "slug": "verimed",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#070A18"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "org.verimed.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#070A18"
+      },
+      "package": "org.verimed.app"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      [
+        "expo-router",
+        {
+          "origin": "https://verimed.org"
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow VeriMed to use the camera to scan packaging and QR codes."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow VeriMed to access your photos to verify uploaded packaging photos."
+        }
+      ]
+    ],
+    "scheme": "verimed"
+  }
+}
