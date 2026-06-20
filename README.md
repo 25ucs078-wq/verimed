@@ -1,82 +1,64 @@
-# VeriMed - AI-Powered Counterfeit Medicine Intelligence Ecosystem
+# VeriMed - AI-Powered Counterfeit Medicine Security Ecosystem
 
-VeriMed is a premium health-security monorepo featuring a FastAPI backend and a fully responsive Vite React Web + Mobile Dashboard. The ecosystem is designed to assist pharmacists and patients in verifying drug packaging integrity and serialization signatures (India DCGI regulations), even under offline conditions.
+> **Scan. Verify. Stay Safe.**  
+> *Establishing a trust boundary for clinical supply chains at the point of care.*
 
-## Project Structure
-
-```
-verimed/
-├── backend/                  # FastAPI backend API
-│   ├── app/
-│   │   ├── main.py                   # App initialization & lifespan triggers
-│   │   ├── config.py                 # Core configurations & thresholds
-│   │   ├── db.py                     # Database AsyncSession configurations
-│   │   ├── models.py                 # 12 SQLAlchemy database schemas
-│   │   ├── schemas.py                # Pydantic schemas for network IO
-│   │   ├── routers/                  # Segmented REST routes (CV, QR, Anomalies, Sync, News)
-│   │   ├── services/                 # Simulated ML, QR crypto, and Risk Engines
-│   │   └── seed/                     # Seeding modules (50 Genuine + 50 Counterfeit)
-│   ├── requirements.txt              # Backend dependencies
-│   └── docker-compose.yml            # Multi-container orchestration (API + PG + Redis)
-└── web/                      # [Pivoted] Vite React Web + Mobile Responsive SPA
-    ├── src/
-    │   ├── components/               # Reusable Glassmorphism widgets (radial gauge, map)
-    │   ├── pages/                    # Views (Dashboard, Scanner, Risk radar, Alerts, Sync)
-    │   ├── lib/                      # Zustand state store context & API client
-    │   └── App.tsx                   # Page aggregator shell
-    ├── index.html
-    └── package.json
-```
+VeriMed is a premium health-security platform designed to protect patients, pharmacies, and manufacturers from the global counterfeit drug trade. By combining advanced camera-based packaging analysis with secure cryptographic signature verification, VeriMed validates medicine authenticity in seconds—even in completely offline environments.
 
 ---
 
-## Running the Ecosystem
+## 1. The Challenge: Counterfeit Medical Products
+According to the World Health Organization (WHO), up to **10% of medical products** in low- and middle-income countries are falsified or substandard, leading to hundreds of thousands of preventable deaths annually.
 
-### 1. Start the Backend Server (Terminal 1)
-Navigate to the backend directory, install Python dependencies, and run the service:
-```powershell
-cd "C:\Users\agarw\.gemini\antigravity\scratch\verimed\backend"
-pip install -r requirements.txt
-python -m uvicorn app.main:app --reload
-```
-- Access Swagger docs at: `http://localhost:8000/docs`
+This crisis is compounded by:
+- **Visual Clones**: Counterfeiters easily replicate packaging boxes, logo prints, and holograms, making visual human detection impossible.
+- **Connectivity Dead Zones**: Standard verification databases require an active internet connection, leaving remote dispensaries and border inspection checkposts vulnerable.
+- **Information Lag**: Critical safety updates and regulatory recalls take weeks to trickle down to clinical operators on the ground.
 
 ---
 
-### 2. Start the React Web Client (Terminal 2)
-Navigate to the web directory and run the dev server:
-```powershell
-cd "C:\Users\agarw\.gemini\antigravity\scratch\verimed\web"
-npm run dev
-```
-- Metro will start the server and open **`http://localhost:3000`** in your browser.
-- *Tip: Resize your browser window to simulate mobile layout bottom tab bar navigation!*
+## 2. The Solution: Point-of-Care Verification
+VeriMed turns any mobile device or web terminal into a secure diagnostic tool using a two-layer authentication model:
+
+### Layer 1: Structural Packaging Integrity (Vision Audit)
+The device camera captures the layout of the medicine box. The vision classifier evaluates:
+- **Logo Positioning & Alignment** (flags deviations >5%)
+- **Typography & Font Kerning** (flags deviations >3%)
+- **Color Spectrum Fidelity** (flags deviations >7%)
+
+### Layer 2: Cryptographic SmartID Verification
+The scanner decodes the barcode or QR code to parse the DCGI-mandated serialization parameters:
+- Batch numbers, manufacturing/expiry dates, license sequences, and serialization codes.
+- The app decrypts the manufacturer's cryptographic signature to verify authenticity against cached public keys.
 
 ---
 
-## Walkthrough Guide
+## 3. Product Features & Core Value
 
-Use this step-by-step test script to evaluate the ecosystem features:
+### ⚡ Offline-First Architecture
+Designed for low-connectivity regions, VeriMed mirrors local batch data and cryptographic keys in a secure offline database (covering a 50km radius of the operator). If a scan occurs offline:
+1. The signature is validated locally.
+2. The scan log is queued in a secure outbox.
+3. Once a connection is restored, the outbox automatically synchronizes with the primary servers.
 
-1. **Dashboard Controls**:
-   - See the dynamic counts (total scans & counterfeits blocked) and the regional risk cards.
-   - Note the glowing **Online** indicator at the bottom left.
-2. **Verify Packaging (Image Scan)**:
-   - Go to the **Scanner** tab.
-   - Click **Simulate Genuine** -> see the analysis screen process packaging alignment, text kerning, and color gamut parameters.
-   - Review the radial gauge and metrics confirming *Verified Authentic*.
-   - Return to Scan and click **Simulate Suspect** -> see the analysis flag layout anomalies.
-   - Tap **File suspicious product report** to pre-fill a regulatory investigation report.
-3. **Scan QR Code**:
-   - Change the segment to **QR Cryptography Check**.
-   - Tap **Simulate Genuine** to parse valid serialization codes.
-   - Tap **Simulate Suspect** to test a signature verify failure. Note the custom batch status indicators (*Recalled*).
-4. **Geopolitical Risk Map**:
-   - Navigate to the **Risk Radar** tab -> view the geopolitical radar hotspots.
-   - Tap any hotspot (e.g. *Sub-Saharan Africa*) to slide up the glass drawer showing real-time threat indices, counterfeit counts, and dominant anomaly flags.
-5. **Offline-First Synchronization**:
-   - Go to the **Operator** tab.
-   - Toggle **Simulate Online Connection** to **OFF** -> note the dashboard indicator changes to *Offline Mirror*.
-   - Run another scan in the Scanner tab -> view the result processed against local localStorage cache files.
-   - Open the **Sync Center** -> note the outbox indicates `1 Queue Item`.
-   - Toggle **Online Connection** to **ON** in Settings -> return to Sync Center -> tap **Execute Complete Sync**. The outbox drains, uploads logs, and pulls updated batch records from the server!
+### 🗺️ Geopolitical Threat Radar
+VeriMed aggregates anonymous scan results globally. If abnormal deviations or signature failures spike in a region, the Risk Engine automatically increases the local **Threat Index** and broadcasts critical alerts to all clinical operators in the area.
+
+### 🔔 Regulatory News Hub
+Blends global WHO warnings and national drug administration mandates with real-time, threshold-triggered risk alerts generated directly by our surveillance sensors.
+
+---
+
+## 4. The User Journey
+
+1. **The Arrival**: A pharmacist receives a new shipment of medicines in a rural clinic.
+2. **The Audit**: Using the **Scanner**, they verify the packaging design and decrypt the QR signature.
+3. **The Diagnostics**: The app displays a circular radial gauge indicating a confidence score. If authentic, the medicine is safely dispensed. 
+4. **The Quarantine**: If flagged as counterfeit, the batch status is updated, and a **Suspicious Product Report** is automatically compiled and queued for dispatch to drug inspectors.
+
+---
+
+## 5. Ecosystem Components
+
+- **VeriMed Backend Server**: Built on high-performance async APIs, SQL schemas, and decoupled services for print layout vision audits, signature decodes, and geospatial anomaly routing.
+- **VeriMed Web + Mobile Client**: A fully responsive dark glassmorphic dashboard that dynamically resizes into a mobile layout with floating navigation widgets.
